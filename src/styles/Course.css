@@ -1,0 +1,186 @@
+/* Estilos para las tarjetas de las lecciones */
+.leccion-card {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.leccion-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos para los títulos de las lecciones */
+.leccion-card h3 {
+    color: #ff6b6b;
+    margin-bottom: 15px;
+}
+
+/* Estilos para el texto (contenido) de las lecciones */
+.leccion-card p {
+    color: black;
+}
+
+/* Estilos para el botón de cerrar en la vista detallada de la lección */
+.close-button {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.close-button:hover {
+    background-color: #e55a5a;
+}
+
+/* Estilos generales para el contenedor del curso */
+.course-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+/* Estilos para las tarjetas de las lecciones */
+.leccion-card {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.leccion-card:hover {
+    transform: scale(1.03);
+}
+
+/* Estilos para el detalle de la lección seleccionada */
+.leccion-detalle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 10;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.leccion-detalle h2,
+.leccion-detalle p {
+    margin-bottom: 20px;
+}
+.course-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.course-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.233);
+}
+.course-leccion{
+    height: 100%;
+    width: 100%;
+    padding-left: 50px;
+}
+
+.course-leccion-add{
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.233);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.course-leccion-add-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.course-leccion-add-form input{
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+.course-leccion-add-form input:focus{
+    border-color: #ff6b6b;
+}
+.course-leccion-add-form textarea{
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+    resize: none;
+    height: 200px;
+}
+.course-leccion-add-form textarea:focus{
+    border-color: #ff6b6b;
+}
+.course-leccion-add-form button{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6b6b;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.course-leccion-map{
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.233);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.leccion-card button{ 
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6b6b;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 10px 0;
+}
+
+.course-all{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80%;
+    max-width: 80%;
+}
+.course-leccion-map{
+    min-width: 96%;
+    margin-left: 3%;
+}
