@@ -28,6 +28,7 @@ function Navbar() {
             <Link to="/Teacher">Inicio</Link>
             <Link to="/my-courses">Mis Cursos</Link>
             <Link to="/create-course">Crear Nuevo Curso</Link>
+            <Link to="/messages-teacher">Mensajes</Link>
           </>
         ) : userRole === 'alumno' ? (
           <>

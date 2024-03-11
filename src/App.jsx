@@ -11,6 +11,7 @@ import MyCourses from './pages/MyCourses'; // Componente para docentes
 import CreateCourse from './pages/CreateCourse'; // Componente para docentes
 import Course from './pages/Course'; // Nuevo componente para detalles del curso
 import Navbar from './components/Navbar';
+import MessagesTeacher from './pages/MesagesTeacher'; // Componente para docentes
 import './styles/App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,6 +41,7 @@ function Layout() {
           <>
             <Route path="/my-courses" element={<PrivateRoute><MyCourses /></PrivateRoute>} />
             <Route path="/create-course" element={<PrivateRoute><CreateCourse /></PrivateRoute>} />
+            <Route path="/messages-teacher" element={<PrivateRoute><MessagesTeacher /></PrivateRoute>} />
           </>
         )}
         <Route path="/course/:courseId" element={<PrivateRoute><Course /></PrivateRoute>} /> {/* Nueva ruta para detalles del curso */}
