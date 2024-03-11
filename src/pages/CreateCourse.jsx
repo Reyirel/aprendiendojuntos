@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getFirestore, collection, addDoc } from "firebase/firestore"; 
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { useAuth } from '../context/AuthContext';
+import '../styles/CreateCourse.css';
 
 function CreateCourse() {
   const [course, setCourse] = useState({ nombre: '', descripcion: '' });
@@ -30,11 +31,16 @@ function CreateCourse() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="nombre" placeholder="Nombre del Curso" onChange={handleChange} required />
-      <input type="text" name="descripcion" placeholder="Descripción del Curso" onChange={handleChange} required />
-      <button type="submit">Crear Curso</button>
-    </form>
+    <>
+      <h1>Creacion de cursos</h1>
+      <div className="formulario-crearc">
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="nombre" placeholder="Nombre del Curso" onChange={handleChange} required />
+          <input type="text" name="descripcion" placeholder="Descripción del Curso" onChange={handleChange} required />
+          <button type="submit">Crear Curso</button>
+        </form>
+      </div>
+    </>
   );
 }
 

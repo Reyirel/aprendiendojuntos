@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import { useAuth } from '../context/AuthContext'; // Asegúrate de que este hook está implementado correctamente
+import { getFirestore, collection, addDoc, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../styles/MessagesTeacher.css';
 
 function MessagesTeacher() {
   const [cursos, setCursos] = useState([]);
@@ -9,12 +12,12 @@ function MessagesTeacher() {
   const [selectedLeccion, setSelectedLeccion] = useState('');
   const [alumnos, setAlumnos] = useState([]);
   const [selectedAlumno, setSelectedAlumno] = useState('');
+  const [mensaje, setMensaje] = useState('');
   const { currentUser } = useAuth();
   const db = getFirestore();
 
   useEffect(() => {
     const fetchCursos = async () => {
-      // Asumiendo que hay una colección "cursos" y cada curso tiene un campo "instructor"
       const q = query(collection(db, "cursos"), where("instructor", "==", currentUser.uid));
       const querySnapshot = await getDocs(q);
       setCursos(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
@@ -28,9 +31,8 @@ function MessagesTeacher() {
   useEffect(() => {
     const fetchLecciones = async () => {
       if (selectedCurso) {
-        // Asumiendo que las lecciones están en una subcolección del curso seleccionado
-        const leccionesRef = collection(db, "cursos", selectedCurso, "lecciones");
-        const querySnapshot = await getDocs(leccionesRef);
+        const q = query(collection(db, "lecciones"), where("cursoId", "==", selectedCurso));
+        const querySnapshot = await getDocs(q);
         setLecciones(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       }
     };
@@ -41,7 +43,6 @@ function MessagesTeacher() {
   useEffect(() => {
     const fetchAlumnos = async () => {
       if (selectedCurso) {
-        // Obtiene el documento del curso para leer la lista de estudiantes
         const cursoRef = doc(db, "cursos", selectedCurso);
         const cursoSnap = await getDoc(cursoRef);
         if (cursoSnap.exists()) {
@@ -56,33 +57,53 @@ function MessagesTeacher() {
     fetchAlumnos();
   }, [selectedCurso, db]);
 
-  const handleSendMessage = () => {
-    // Aquí implementarías la lógica para enviar el mensaje al alumno seleccionado
-    console.log(`Enviar mensaje a ${selectedAlumno} sobre la lección ${selectedLeccion} del curso ${selectedCurso}`);
+  const handleSendMessage = async () => {
+    try {
+      await addDoc(collection(db, "mensajes"), {
+        cursoId: selectedCurso,
+        leccionId: selectedLeccion,
+        alumnoId: selectedAlumno,
+        mensaje: mensaje,
+        enviadoPor: currentUser.uid,
+        timestamp: new Date(),
+      });
+      toast.success('Mensaje enviado con éxito');
+      setMensaje(''); // Limpiar el campo de mensaje después de enviar
+    } catch (error) {
+      console.error("Error enviando el mensaje: ", error);
+      toast.error('Error al enviar el mensaje');
+    }
   };
 
   return (
     <div>
+      <ToastContainer />
       <h1>Enviar Mensaje a Alumno</h1>
-      <select value={selectedCurso} onChange={e => setSelectedCurso(e.target.value)}>
-        <option value="">Selecciona un curso</option>
-        {cursos.map(curso => (
-          <option key={curso.id} value={curso.id}>{curso.nombre}</option>
-        ))}
-      </select>
-      <select value={selectedLeccion} onChange={e => setSelectedLeccion(e.target.value)}>
-        <option value="">Selecciona una lección</option>
-        {lecciones.map(leccion => (
-          <option key={leccion.id} value={leccion.id}>{leccion.nombre}</option>
-        ))}
-      </select>
-      <select value={selectedAlumno} onChange={e => setSelectedAlumno(e.target.value)}>
-        <option value="">Selecciona un alumno</option>
-        {alumnos.map(alumno => (
-          <option key={alumno.id} value={alumno.id}>{alumno.nombre}</option>
-        ))}
-      </select>
-      <button onClick={handleSendMessage}>Enviar Mensaje</button>
+      <div className="formulario-mensajes">
+        <div className="secciones">
+
+          <select value={selectedCurso} onChange={e => setSelectedCurso(e.target.value)}>
+            <option value="">Selecciona un curso</option>
+            {cursos.map(curso => (
+              <option key={curso.id} value={curso.id}>{curso.nombre}</option>
+            ))}
+          </select>
+          <select value={selectedLeccion} onChange={e => setSelectedLeccion(e.target.value)}>
+            <option value="">Selecciona una lección</option>
+            {lecciones.map(leccion => (
+              <option key={leccion.id} value={leccion.id}>{leccion.titulo}</option>
+            ))}
+          </select>
+          <select value={selectedAlumno} onChange={e => setSelectedAlumno(e.target.value)}>
+            <option value="">Selecciona un alumno</option>
+            {alumnos.map(alumno => (
+              <option key={alumno.id} value={alumno.id}>{alumno.nombre} {alumno.apellidos}</option>
+            ))}
+          </select>
+          <textarea value={mensaje} onChange={e => setMensaje(e.target.value)} placeholder="Escribe tu mensaje aquí"></textarea>
+          <button onClick={handleSendMessage}>Enviar Mensaje</button>
+        </div>
+      </div>
     </div>
   );
 }
