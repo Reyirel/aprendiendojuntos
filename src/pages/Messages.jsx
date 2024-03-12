@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
-import '../styles/Messages.css'; // Asegúrate de que el path a tu archivo CSS sea correcto
+import '../styles/Messages.css';
 
 function Messages() {
   const [mensajes, setMensajes] = useState([]);
@@ -13,7 +13,35 @@ function Messages() {
       if (currentUser) {
         const q = query(collection(db, "mensajes"), where("alumnoId", "==", currentUser.uid));
         const querySnapshot = await getDocs(q);
-        setMensajes(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        const mensajesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        const mensajesConDatosAdicionales = await Promise.all(mensajesData.map(async mensaje => {
+          // Obtener el nombre del usuario que envió el mensaje
+          const enviadoPorRef = doc(db, "usuarios", mensaje.enviadoPor);
+          const enviadoPorSnap = await getDoc(enviadoPorRef);
+          const enviadoPorData = enviadoPorSnap.data();
+          mensaje.enviadoPorNombre = `${enviadoPorData.nombre} ${enviadoPorData.apellidos}`;
+
+          // Obtener el nombre del curso
+          const cursoRef = doc(db, "cursos", mensaje.cursoId);
+          const cursoSnap = await getDoc(cursoRef);
+          const cursoData = cursoSnap.data();
+          mensaje.cursoNombre = cursoData.nombre;
+
+          // Obtener el título de la lección
+          if (mensaje.leccionId) { // Asegúrate de que haya un leccionId antes de intentar buscarlo
+            const leccionRef = doc(db, "lecciones", mensaje.leccionId);
+            const leccionSnap = await getDoc(leccionRef);
+            const leccionData = leccionSnap.data();
+            mensaje.leccionTitulo = leccionData.titulo;
+          } else {
+            mensaje.leccionTitulo = "N/A"; // O algún valor predeterminado si no hay lección
+          }
+
+          return mensaje;
+        }));
+
+        setMensajes(mensajesConDatosAdicionales);
       }
     };
 
@@ -27,11 +55,11 @@ function Messages() {
         {mensajes.length > 0 ? (
           mensajes.map(mensaje => (
             <div key={mensaje.id} className="tarjeta-mensaje">
-              <h3>Curso: {mensaje.cursoId}</h3>
-              <p>Lección: {mensaje.leccionId}</p>
-              <p>De: {mensaje.instructorId}</p>
+              <h3>Curso: {mensaje.cursoNombre}</h3>
+              <p>Lección: {mensaje.leccionTitulo}</p>
+              <p>De: {mensaje.enviadoPorNombre}</p>
               <p>Mensaje: {mensaje.mensaje}</p>
-              <p>Fecha: {mensaje.timestamp.toDate().toDateString()}</p>
+              <p>Fecha: {mensaje.timestamp.toDate().toLocaleDateString('es-MX', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
             </div>
           ))
         ) : (
