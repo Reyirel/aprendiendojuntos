@@ -1,27 +1,31 @@
-.all-course{
-    height: 100%;
+.all-course {
+    height: auto; /* Ajuste para mejorar la manejabilidad de la altura */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Ajustado para alinear el contenido adecuadamente */
+    padding: 2rem 0; /* Espaciado agregado alrededor del contenido */
 }
-.all-course h1{
-    font-size: 5rem;
+
+.all-course h1 {
+    font-size: 3rem; /* Tamaño de fuente ajustado para mejorar la legibilidad */
     margin-bottom: 1rem;
 }
-.card-all-course{
+
+.card-all-course {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    align-items: flex-start; /* Alineación ajustada para elementos envueltos */
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
-    height: 100%;
 }
-.card-all-course .card{
-    width: 300px;
-    height: 300px;
+
+.card-all-course .card {
+    width: 90%; /* Ancho ajustado para pantallas más pequeñas */
+    max-width: 300px; /* Limita el ancho máximo */
+    min-height: 300px; /* Establece una altura mínima */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,30 +33,59 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
-.card-all-course .card:hover{
+
+.card-all-course .card:hover {
     transform: scale(1.1);
 }
-.all-course .card h3{
-    font-size: 2rem;
+
+.all-course .card h3 {
+    font-size: 2rem; /* Tamaño de fuente para el título de la tarjeta */
     margin-bottom: 1rem;
 }
-.all-course .card p{
-    font-size: 1.5rem;
+
+.all-course .card p {
+    font-size: 1.5rem; /* Tamaño de fuente para el párrafo de la tarjeta */
     text-align: center;
 }
-.all-course .card button{
+
+.all-course .card button {
     margin-top: 1rem;
     padding: 1rem 1rem;
     font-size: 1rem;
-    background-color: #ff6b6b;
-    color: #fff;
+    background-color: #ff6b6b; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 5px;
 }
 
-.all-course .card button:hover{
-    background-color: #f1356d;
-    transform: scale(1.1);
+.all-course .card button:hover {
+    background-color: #f1356d; /* Color de fondo del botón al pasar el ratón */
+    transform: scale(1.1); /* Efecto de escalado al pasar el ratón */
+}
+
+@media only screen and (max-width: 768px) {
+    .all-course h1 {
+        font-size: 2.5rem; /* Ajuste de tamaño de fuente para tabletas */
+    }
+
+    .card-all-course .card {
+        width: 100%; /* Ajuste de ancho para ocupar todo el espacio disponible */
+        max-width: none; /* Permite que la tarjeta se expanda más allá de 300px */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .all-course {
+        padding: 1rem 0; /* Ajuste de padding para móviles */
+    }
+
+    .all-course h1 {
+        font-size: 2rem; /* Ajuste de tamaño de fuente para móviles */
+    }
+
+    .card-all-course .card {
+        min-height: 250px; /* Ajuste de altura mínima para dispositivos muy pequeños */
+    }
 }
