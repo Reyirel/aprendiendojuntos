@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 .formulario-crearc{
     width: 100vw;
     height: 80vh;
@@ -11,6 +12,7 @@
     align-items: center;
     flex-direction: column;
 }
+
 .formulario-crearc form{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
@@ -21,12 +23,13 @@
     justify-content: center;
     gap: 20px;
 }
+
 .formulario-crearc form input{
     padding: 10px;
     border-radius: 5px;
     transition: 0.3s;
     height: 40px;
-    width: 900px;
+    width: 900px; /* Mantenemos el ancho original */
     border: 1px solid;
 }
 
@@ -45,6 +48,38 @@
     border-radius: 10px;
     transition: 0.3s ease-in-out;
 }
+
 .formulario-crearc form button:hover{
     background-color: #ff4d4d;
+}
+
+/* Media queries para adaptar los inputs y botones en pantallas más pequeñas */
+@media (max-width: 1024px) {
+    .formulario-crearc form{
+        width: 90%; /* Ajustamos el ancho para pantallas medianas */
+    }
+    .formulario-crearc form input, 
+    .formulario-crearc form button {
+        width: 90%; /* Ajustamos el ancho para pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .formulario-crearc form{
+        width: 90%; /* Ajustamos el ancho para pantallas medianas */
+    }
+    .formulario-crearc form input, 
+    .formulario-crearc form button {
+        width: 70%; /* Ajustamos para tablets y pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .formulario-crearc form{
+        width: 90%; /* Ajustamos el ancho para pantallas medianas */
+    }
+    .formulario-crearc form input, 
+    .formulario-crearc form button {
+        width: 90%; /* Ajustamos para móviles */
+    }
 }

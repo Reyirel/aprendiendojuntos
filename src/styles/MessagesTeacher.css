@@ -60,3 +60,38 @@
     background-color: #ff4d4d;
     transform: scale(1.1);
 }
+
+/* media queries para adaptar los inputs y botones en pantallas más pequeñas */
+@media (max-width: 1024px) {
+    .formulario-mensajes .secciones{
+        width: 90%;
+    }
+    .formulario-mensajes .secciones select, 
+    .formulario-mensajes .secciones textarea,
+    .formulario-mensajes .secciones button {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .formulario-mensajes .secciones{
+        width: 90%;
+    }
+    .formulario-mensajes .secciones select, 
+    .formulario-mensajes .secciones textarea,
+    .formulario-mensajes .secciones button {
+        width: 70%;
+    }
+}
+
+@media (max-width: 480px) {
+    .formulario-mensajes .secciones{
+        width: 90%;
+    }
+    .formulario-mensajes .secciones select, 
+    .formulario-mensajes .secciones textarea,
+    .formulario-mensajes .secciones button {
+        width: 90%;
+    }
+}
+

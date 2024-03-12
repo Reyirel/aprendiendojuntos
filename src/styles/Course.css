@@ -184,3 +184,47 @@
     min-width: 96%;
     margin-left: 3%;
 }
+
+@media (max-width: 1024px) {
+    .course-all{
+        min-width: 100%;
+        max-width: 100%;
+    }
+    .course-leccion-map{
+        min-width: 100%;
+        margin-left: 0;
+    }
+}
+@media (max-width: 768px) {
+    .course-section{
+        flex-direction: column;
+    }
+    .course-info{
+        padding: 20px;
+    }
+    .course-leccion{
+        padding-left: 0;
+    }
+    .course-leccion-add{
+        padding: 20px;
+    }
+    .course-leccion-map{
+        padding: 20px;
+    }
+}
+
+@media (max-width: 425px) {
+    .course-leccion-add-form input{
+        width: 100%;
+    }
+    .course-leccion-add-form textarea{
+        width: 100%;
+    }
+    .course-leccion-add-form button{
+        width: 100%;
+    }
+    .course-leccion-map{
+        min-width: 100%;
+        margin-left: 0;
+    }
+}
